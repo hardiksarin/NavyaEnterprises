@@ -1,0 +1,47 @@
+﻿<Window x:Class="NavyaEnterprises.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NavyaEnterprises"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="800" WindowStyle="SingleBorderWindow" MaxHeight="800" MinHeight="800" MaxWidth="800" MinWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+
+
+            <ColumnDefinition Width="Auto"/>
+             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="20"/>
+        </Grid.RowDefinitions>
+        <Rectangle Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" Fill="#03a9f4" MinHeight="200"></Rectangle>
+        <Label  Grid.Row="1" Grid.Column="4"  HorizontalAlignment="Center"  Name="GravitonLabel" Content="G R A V I T O N" VerticalAlignment="Top" Foreground="#ffffff" FontSize="50" FontWeight="Light" Padding="10"></Label>
+        <Label  Margin="0,65,0,30" Grid.Row="1" Grid.Column="4"  HorizontalAlignment="Center"  Name="KugelblitzLabel" Content="Product of Kugelblitz Technologies" VerticalAlignment="Center" Foreground="#ffffff" FontSize="20" FontWeight="Light"></Label>
+
+        <Label  Grid.Row="2" Grid.Column="4"  HorizontalAlignment="Center"  Name="LoginLabel" Content="Login" Foreground="Gray" FontSize="34" FontWeight="Light"></Label>
+        <Label Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left"  Name="UsernameLabel" Content="Username" Foreground="Gray" FontSize="20" FontWeight="Light"></Label>
+        <TextBox Grid.Row="4"  Grid.Column="4" x:Name="UsenameInputBox" MinHeight="30"   Foreground="Gray" FontSize="25" FontWeight="Light"></TextBox>
+        <Label Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="PasswordLabel" Content="Password" Foreground="Gray" FontSize="20" FontWeight="Light"></Label>
+        <PasswordBox Grid.Column="4" Grid.Row="6" Name="PasswordInputBox" MinHeight="30" FontSize="25"></PasswordBox>
+        <Button Margin="50,30,50,30" x:Name="LoginButton" Grid.Column="4" Grid.Row="7" Content="Login" Background="#03a9f4"  Foreground="#ffffff" FontSize="30" FontWeight="Light"></Button>
+    </Grid>
+
+</Window>
