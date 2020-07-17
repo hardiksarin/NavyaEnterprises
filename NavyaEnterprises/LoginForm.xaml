@@ -38,10 +38,10 @@
 
         <Label  Grid.Row="2" Grid.Column="4"  HorizontalAlignment="Center"  Name="LoginLabel" Content="Login" Foreground="Gray" FontSize="34" FontWeight="Light"></Label>
         <Label Grid.Row="3" Grid.Column="4" HorizontalAlignment="Left"  Name="UsernameLabel" Content="Username" Foreground="Gray" FontSize="20" FontWeight="Light"></Label>
-        <TextBox Grid.Row="4"  Grid.Column="4" x:Name="UsenameInputBox" MinHeight="30"   Foreground="Gray" FontSize="25" FontWeight="Light"></TextBox>
+        <TextBox Grid.Row="4"  Grid.Column="4" x:Name="UsernameInputBox" MinHeight="30"   Foreground="Gray" FontSize="25" FontWeight="Light"></TextBox>
         <Label Grid.Row="5" Grid.Column="4" HorizontalAlignment="Left" VerticalAlignment="Center"  Name="PasswordLabel" Content="Password" Foreground="Gray" FontSize="20" FontWeight="Light"></Label>
         <PasswordBox Grid.Column="4" Grid.Row="6" Name="PasswordInputBox" MinHeight="30" FontSize="25"></PasswordBox>
-        <Button Margin="50,30,50,30" x:Name="LoginButton" Grid.Column="4" Grid.Row="7" Content="Login" Background="#03a9f4"  Foreground="#ffffff" FontSize="30" FontWeight="Light"></Button>
+        <Button Margin="50,30,50,30" x:Name="LoginButton" Grid.Column="4" Grid.Row="7" Content="Login" Background="#03a9f4"  Foreground="#ffffff" FontSize="30" FontWeight="Light" Click="LoginButton_Click"></Button>
     </Grid>
 
 </Window>
