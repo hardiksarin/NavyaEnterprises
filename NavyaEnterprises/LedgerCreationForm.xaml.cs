@@ -21,5 +21,15 @@ namespace GravitonUI
         {
             InitializeComponent();
         }
+
+        private void TeamNameValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void PincodeValue_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
