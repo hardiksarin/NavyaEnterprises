@@ -3,11 +3,25 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetPlatformVersion>8.0</TargetPlatformVersion>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\GravitonLibrary\GravitonLibrary.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ToastNotifications">
+      <HintPath>..\..\..\..\.nuget\packages\toastnotifications\2.5.1\lib\net40\ToastNotifications.dll</HintPath>
+    </Reference>
+    <Reference Include="WPFNotification">
+      <HintPath>..\..\..\..\.nuget\packages\wpfnotification\1.1.0\lib\WPFNotification.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

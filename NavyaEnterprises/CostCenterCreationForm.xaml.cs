@@ -29,12 +29,14 @@ namespace GravitonUI
             WireUpLists();
         }
 
+        //Load Category And Cost Center Data
         private void LoadListData()
         {
             availableCategory = GlobalConfig.Connection.GetCategory_All();
             availableCenter = GlobalConfig.Connection.GetCostCenter_All();
         }
 
+        //Initialise the combo box to list of groups and cost centers.
         private void WireUpLists()
         {
             CategoryInputComboBox.ItemsSource = null;
@@ -46,6 +48,7 @@ namespace GravitonUI
             UnderComboBox.DisplayMemberPath = "cc_name";
         }
 
+        //Validate And Create Cost Center
         private void CreateButton_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateForm())
@@ -66,6 +69,7 @@ namespace GravitonUI
             }
         }
 
+        //// Validate the login Form
         private bool ValidateForm()
         {
             bool output = true;

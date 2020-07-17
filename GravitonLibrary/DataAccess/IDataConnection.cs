@@ -14,5 +14,6 @@ namespace GravitonLibrary.DataAccess
         List<CostCategoryModel> GetCategory_All();
         List<CostCenterModel> GetCostCenter_All();
         CostCenterModel CreateCostCenter(CostCenterModel model);
+        LedgerModel CreateLedger(LedgerModel model);
     }
 }

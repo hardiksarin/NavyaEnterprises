@@ -69,6 +69,20 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Saves Ledger Model to Database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public LedgerModel CreateLedger(LedgerModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enabel_interest_calculations}')");
+                return model;
+            }
+        }
+
+        /// <summary>
         /// Gets all the records of Category from database.
         /// </summary>
         /// <returns></returns>

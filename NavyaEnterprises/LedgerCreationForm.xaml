@@ -41,27 +41,27 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBlock HorizontalAlignment="Right" Grid.ColumnSpan="8" Margin="0,0,0,10" Text="Date : 24-Jun-2019" Grid.Column="7" Grid.Row="1"  Foreground="#FF3399FF" VerticalAlignment="Bottom" FontWeight="Light" FontSize="20" ></TextBlock>
+        <TextBlock Name="CurrentDate" HorizontalAlignment="Right" Grid.ColumnSpan="8" Margin="0,0,0,10" Text="Date : 24-Jun-2019" Grid.Column="7" Grid.Row="1"  Foreground="#FF3399FF" VerticalAlignment="Bottom" FontWeight="Light" FontSize="20" ></TextBlock>
         <Label   Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Name="CreateLedgerLable" Content="Create Ledger" Foreground="#3399ff" FontSize="34" FontWeight="Light"></Label>
         <Label Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Name="LedgerNameLabel" Content="Ledger Name" Foreground="Gray" FontSize="24"  FontWeight="Light"></Label>
-        <TextBox Margin="0,0,10,0" x:Name="TeamNameValue" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="LightGray" FontSize="22" TextChanged="TeamNameValue_TextChanged"  ></TextBox>
+        <TextBox Margin="0,0,10,0" x:Name="LedgerNameValue" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" BorderBrush="LightGray" FontSize="22"></TextBox>
         <Label Margin="20,0,0,0" Grid.Row="2" Grid.Column="3"  Grid.ColumnSpan="4" Name="LedgerAliasLabel" Content="Alias" Foreground="Gray" FontSize="24"  FontWeight="Light"></Label>
-        <TextBox Margin="20,0,0,0" MinWidth="200" x:Name="LedgerAliasValue"  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" BorderBrush="LightGray" FontSize="22" TextChanged="TeamNameValue_TextChanged"  ></TextBox>
+        <TextBox Margin="20,0,0,0" MinWidth="200" x:Name="LedgerAliasValue"  Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" BorderBrush="LightGray" FontSize="22" ></TextBox>
         <Label Margin="150,0,0,0" Grid.Row="2" Grid.Column="5"  Grid.ColumnSpan="7" Name="UnderGroupLabel" Content="Under Group" Foreground="Gray" FontSize="24" FontWeight="Light"></Label>
-        <ComboBox Margin="150,0,0,0" MinHeight="30" Background="Transparent" x:Name="RoundDropDown" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="7" ></ComboBox>
+        <ComboBox Margin="150,0,0,0" MinHeight="30" Background="Transparent" x:Name="UnderGroupDropDown" Grid.Row="3" Grid.Column="5" Grid.ColumnSpan="7" ></ComboBox>
         <GroupBox x:Name="MailingAddress" Grid.Row="4" Grid.RowSpan="12"  MinHeight="280"  Grid.Column="1"  Grid.ColumnSpan="5"  Header="Mailing Address" Margin="0,10,0,150" Foreground="#FF3399FF">
 
 
         </GroupBox>
         <Label Grid.Row="5" Grid.Column="1"  Name="NameLabel" Content="Name" Foreground="Gray" FontSize="24" Margin="10,20,0,0" FontWeight="Light"></Label>
         <TextBox 
-           HorizontalScrollBarVisibility="Hidden" x:Name="NameValue" Foreground="#3399ff" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Margin="10,60,10,0" BorderBrush="LightGray" Grid.RowSpan="6" Height="30" VerticalAlignment="Top"  ></TextBox>
+           HorizontalScrollBarVisibility="Hidden" x:Name="MDNameValue" Foreground="#3399ff" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4" Margin="10,60,10,0" BorderBrush="LightGray" Grid.RowSpan="6" Height="30" VerticalAlignment="Top"  ></TextBox>
         <Label Grid.Row="6" Grid.Column="1"  Name="AddressLabel" Content="Address" Foreground="Gray" FontSize="24" Margin="10,25,0,0" FontWeight="Light"></Label>
-        <TextBox x:Name="AddressValue" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Margin="10,60,10,0" BorderBrush="LightGray" Grid.RowSpan="6" Height="120" VerticalAlignment="Top"  ></TextBox>
+        <TextBox x:Name="MDAddressValue" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" Margin="10,60,10,0" BorderBrush="LightGray" Grid.RowSpan="6" Height="120" VerticalAlignment="Top"  ></TextBox>
         <Label Margin="0,120,0,0" Grid.Row="7" Grid.Column="1"  Name="StateLabel" Content="State" Foreground="Gray" FontSize="24"  FontWeight="Light"></Label>
         <ComboBox x:Name="StateValue" Foreground="#3399ff" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="4"  BorderBrush="LightGray" Grid.RowSpan="6" Height="30" VerticalAlignment="Top"  ></ComboBox>
         <Label Grid.Row="9" Grid.Column="1"  Name="PincodeLabel" Content="Pincode" Foreground="Gray" FontSize="24" Margin="10,25,0,0" FontWeight="Light"></Label>
-        <TextBox HorizontalScrollBarVisibility="Disabled"  x:Name="PincodeValue" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="LightGray" Height="30" />
+        <TextBox HorizontalScrollBarVisibility="Disabled"  x:Name="MDPincodeValue" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="4" BorderBrush="LightGray" Height="30" />
         <GroupBox x:Name="LedgerBalances" Grid.Row="4" Grid.RowSpan="8"    Grid.Column="6"  Grid.ColumnSpan="5"  Header="Total Opening Balance" Margin="0,10,0,150" Foreground="#FF3399FF">
 
 
@@ -73,16 +73,16 @@
 
         </GroupBox>
         <TextBlock Text="Bill Based Accouting" Grid.Row="9" Grid.Column="7" VerticalAlignment="Center" Foreground="#FF3399FF"  FontWeight="Light" FontSize="18"></TextBlock>
-        <CheckBox IsChecked="True" Grid.Column="7" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+        <CheckBox Name="BillBasedAccouting" IsChecked="True" Grid.Column="7" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
 
         <TextBlock Text="Cost Centers Applicable" Grid.Row="10" Grid.Column="7" VerticalAlignment="Center" Foreground="#FF3399FF"  FontWeight="Light" FontSize="18"></TextBlock>
-        <CheckBox  IsChecked="True" Grid.Column="8" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Left"></CheckBox>
+        <CheckBox Name="CostCentersApplicable" IsChecked="True" Grid.Column="8" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Left"></CheckBox>
 
         <TextBlock Margin="0,20,0,0" Text="Enable Intrest Calculations" Grid.Row="11" Grid.Column="7" VerticalAlignment="Center" Foreground="#FF3399FF"  FontWeight="Light" FontSize="18"></TextBlock>
-        <CheckBox Margin="10,20,0,0" IsChecked="False" Grid.Column="8" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20"></CheckBox>
+        <CheckBox Name="EnableIntrestCalculations" Margin="10,20,0,0" IsChecked="False" Grid.Column="8" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Left" Width="20"></CheckBox>
 
 
-        <Button   x:Name="CreateButton" Margin="10,80,10,40" Grid.Column="7" Grid.Row="15" Content="Create" BorderBrush="Transparent" Background="#03a9f4"  Foreground="#ffffff" FontSize="30" FontWeight="Light"></Button>
+        <Button   x:Name="CreateButton" Margin="10,80,10,40" Grid.Column="7" Grid.Row="15" Content="Create" BorderBrush="Transparent" Background="#03a9f4"  Foreground="#ffffff" FontSize="30" FontWeight="Light" Click="CreateButton_Click"></Button>
         <Button   x:Name="QuitButton" Margin="10,80,10,40" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="15" Content="Quit" BorderBrush="LightGray" Background="LightGray"  Foreground="#ffffff" FontSize="30" FontWeight="Light"></Button>
 
     </Grid>
