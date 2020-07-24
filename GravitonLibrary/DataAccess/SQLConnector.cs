@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using Xunit;
 
 namespace GravitonLibrary.DataAccess
 {
@@ -27,6 +28,21 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Creates Bank Detaills and saves it in database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public BankModel CreateBankDetails(BankModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                int id = connection.ExecuteScalar<int>($"insert into bank_details values(default,'{model.bank_name}','{model.bank_branch}','{model.bank_ifsc}') returning bank_id");
+                model.bank_id = id;
+                return model;
+            }
+        }
+
+        /// <summary>
         /// Saves Category model to database.
         /// </summary>
         /// <param name="model"></param>
@@ -35,7 +51,23 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                connection.ExecuteScalar($"insert into category values(default,'{model.category_name}','{model.category_alias}','{model.revenue}')");
+                int id = connection.ExecuteScalar<int>($"insert into category values(default,'{model.category_name}','{model.category_alias}','{model.revenue}') returning category_id");
+                model.category_id = id;
+                return model;
+            }
+        }
+
+        /// <summary>
+        /// Saves Cheque Inventory to Database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ChequeInventoryModel CreateChequeInventory(ChequeInventoryModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                int id = connection.ExecuteScalar<int>($"insert into cheque_inventory values(default,'{model.cheque_no}',{model.pid},{model.lid},'{model.status}',{model.bank_id}) returning cheque_id");
+                model.cheque_id = id;
                 return model;
             }
         }
@@ -69,6 +101,20 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Saves Journal model to Database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public JournalModel CreateJournal(JournalModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"insert into journal values('{model.j_date}','{model.j_time}','{model.j_log}')");
+                return model;
+            }
+        }
+
+        /// <summary>
         /// Saves Ledger Model to Database
         /// </summary>
         /// <param name="model"></param>
@@ -77,7 +123,12 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                connection.ExecuteScalar($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enabel_interest_calculations}')");
+                //Add Ledger Model to Database
+                int lid = connection.ExecuteScalar<int>($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enable_interest_calculations}') returning lid");
+                model.mailingModel.lid = lid;
+
+                //Add Mailing Details to Database
+                connection.ExecuteScalar($"insert into mailing_details values('{model.mailingModel.md_name}','{model.mailingModel.md_address}','{model.mailingModel.md_city}','{model.mailingModel.md_state}','{model.mailingModel.md_country}','{model.mailingModel.md_pincode}',{model.mailingModel.lid})");
                 return model;
             }
         }
@@ -123,5 +174,87 @@ namespace GravitonLibrary.DataAccess
                 return output;
             }
         }
+
+        /// <summary>
+        /// Gets all the records of Ledger from database.
+        /// </summary>
+        /// <returns></returns>
+        public List<LedgerModel> GetLedger_All()
+        {
+            List<LedgerModel> output = new List<LedgerModel>();
+            List<MailingDetailsModel> mailingDetails = new List<MailingDetailsModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<LedgerModel>("select * from ledger").ToList<LedgerModel>();
+
+                mailingDetails = connection.Query<MailingDetailsModel>("select * from mailing_details").ToList<MailingDetailsModel>();
+
+                foreach (LedgerModel ledger in output)
+                {
+                    foreach (MailingDetailsModel mailing in mailingDetails)
+                    {
+                        if(ledger.lid == mailing.lid)
+                        {
+                            ledger.mailingModel = mailing;
+                        }
+                    }
+                }
+                return output;
+            }
+        }
+
+        /// <summary>
+        /// Updates the Category into Database.
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateCategory(CostCategoryModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"update category set category_name = '{model.category_name}', category_alias = '{model.category_alias}', revenue = '{model.revenue}' where category_id = {model.category_id}");
+            }
+        }
+
+        /// <summary>
+        /// Updates the Cost Centers into Database.
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateCostCenter(CostCenterModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"update cost_centers set cc_name = '{model.cc_name}', cc_alias = '{model.cc_alias}', under_category = {model.under_category}, under_cc = {model.under_cc} where cost_center_id = {model.cost_center_id}");
+            }
+        }
+
+        /// <summary>
+        /// Updates the Groups into Database.
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateGroups(GroupModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"update groups set group_name = '{model.group_name}', group_alias = '{model.group_alias}', under_group = {model.under_group} where group_id = {model.group_id}");
+            }
+        }
+
+        /// <summary>
+        /// Updates the Ledgers and its Mailing Details into Database.
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateLedger(LedgerModel model)
+        {
+            MailingDetailsModel m = model.mailingModel;
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                //Update Ledger table in database
+                connection.ExecuteScalar($"update ledger set ledger_name = '{model.ledger_name}', ledger_alias = '{model.ledger_alias}', ledger_opening_balance = {model.ledger_opening_balance}, under_group = {model.under_group}, bill_based_accounting = '{model.bill_based_accounting}', cost_centers_applicable = '{model.cost_centers_applicable}', enabel_interest_calculations = '{model.enable_interest_calculations}' where lid = {model.lid}");
+
+                //update Mailing Details Table in Database
+                connection.ExecuteScalar($"update mailing_details set md_name = '{m.md_name}', md_address = '{m.md_address}', md_city = '{m.md_city}', md_state = '{m.md_state}', md_country = '{m.md_country}', md_pincode = '{m.md_pincode}' where lid = {model.lid}");
+            }
+        }
     }
 }
+  

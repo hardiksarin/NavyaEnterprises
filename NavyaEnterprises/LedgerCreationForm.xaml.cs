@@ -92,6 +92,7 @@ namespace GravitonUI
             if (ValidateForm())
             {
                 LedgerModel model = new LedgerModel();
+                MailingDetailsModel mailingModel = new MailingDetailsModel();
                 GroupModel selectedGroup = (GroupModel)UnderGroupDropDown.SelectedItem;
                 model.ledger_name = LedgerNameValue.Text;
                 model.ledger_alias = LedgerAliasValue.Text;
@@ -115,13 +116,20 @@ namespace GravitonUI
                 }
                 if (EnableIntrestCalculations.IsChecked == true)
                 {
-                    model.enabel_interest_calculations = true;
+                    model.enable_interest_calculations = true;
                 }
                 else
                 {
-                    model.enabel_interest_calculations = false;
+                    model.enable_interest_calculations = false;
                 }
+                mailingModel.md_name = MDNameValue.Text;
+                mailingModel.md_address = MDAddressValue.Text;
+                mailingModel.md_city = "Default";
+                mailingModel.md_state = (string)StateValue.SelectedItem;
+                mailingModel.md_country = "India";
+                mailingModel.md_pincode = MDPincodeValue.Text;
 
+                model.mailingModel = mailingModel;
                 GlobalConfig.Connection.CreateLedger(model);
                 ToastNotification();
             }

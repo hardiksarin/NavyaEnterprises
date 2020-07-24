@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GravitonUI", "NavyaEnterprises\GravitonUI.csproj", "{CC8303C7-6976-4DB0-8F5E-9C9C443A0551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GravitonLibrary", "GravitonLibrary\GravitonLibrary.csproj", "{5D063E5C-178E-4893-B6AD-D97F19104AEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GravitonLibrary", "GravitonLibrary\GravitonLibrary.csproj", "{5D063E5C-178E-4893-B6AD-D97F19104AEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GravitonLibrary.Tests", "GravitonLibrary.Tests\GravitonLibrary.Tests.csproj", "{825B48A0-A629-487C-80FF-E6AD365CC8E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5D063E5C-178E-4893-B6AD-D97F19104AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D063E5C-178E-4893-B6AD-D97F19104AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D063E5C-178E-4893-B6AD-D97F19104AEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825B48A0-A629-487C-80FF-E6AD365CC8E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825B48A0-A629-487C-80FF-E6AD365CC8E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825B48A0-A629-487C-80FF-E6AD365CC8E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825B48A0-A629-487C-80FF-E6AD365CC8E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
