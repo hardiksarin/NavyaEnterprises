@@ -43,6 +43,20 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Saves Bill Model to database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public BillModel CreateBill(BillModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"insert into bill values(default,'{model.bill_name}','{model.bill_due_date}',{model.bill_amount},{model.lid},{model.pid},'{model.bill_done}',{model.vid})");
+                return model;
+            }
+        }
+
+        /// <summary>
         /// Saves Category model to database.
         /// </summary>
         /// <param name="model"></param>
@@ -134,6 +148,55 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Saves Particular Model to Database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public ParticularModel CreateParticular(ParticularModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                int id = connection.ExecuteScalar<int>($"insert into particulars values(default,{model.particular_amount},{model.particular_name},{model.vid}) returning pid");
+                model.pid = id;
+                return model;
+            }
+        }
+
+        /// <summary>
+        /// Saves Voucher Model to Database
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public VoucherModel CreateVoucher(VoucherModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                //Create Voucher
+                int id = connection.ExecuteScalar<int>($"insert into voucher values(default,'{model.v_date}',{model.v_number},'{model.vtype}',{model.account}) returning vid");
+                model.vid = id;
+                model.Particular.vid = id;
+
+                //Create Particular
+                model.Particular = CreateParticular(model.Particular);
+                return model;
+            }
+        }
+
+        /// <summary>
+        /// Gets all the record of Bill from Database.
+        /// </summary>
+        /// <returns></returns>
+        public List<BillModel> GetBill_All()
+        {
+            List<BillModel> output = new List<BillModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<BillModel>("select * from bill").ToList();
+                return output;
+            }
+        }
+
+        /// <summary>
         /// Gets all the records of Category from database.
         /// </summary>
         /// <returns></returns>
@@ -199,6 +262,34 @@ namespace GravitonLibrary.DataAccess
                         }
                     }
                 }
+                return output;
+            }
+        }
+
+        /// <summary>
+        /// Gets all the records of particulars from database.
+        /// </summary>
+        /// <returns></returns>
+        public List<ParticularModel> GetParticular_All()
+        {
+            List<ParticularModel> output = new List<ParticularModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<ParticularModel>("select * from particulars").ToList();
+                return output;
+            }
+        }
+
+        /// <summary>
+        /// Gets all the records of Voucher from Database.
+        /// </summary>
+        /// <returns></returns>
+        public List<VoucherModel> GetVoucher_All()
+        {
+            List<VoucherModel> output = new List<VoucherModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<VoucherModel>("select * from voucher").ToList();
                 return output;
             }
         }

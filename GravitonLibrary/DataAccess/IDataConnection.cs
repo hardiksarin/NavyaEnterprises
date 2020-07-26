@@ -30,6 +30,18 @@ namespace GravitonLibrary.DataAccess
         List<LedgerModel> GetLedger_All();
         void UpdateLedger(LedgerModel model);
 
+        //Voucher
+        VoucherModel CreateVoucher(VoucherModel model);
+        List<VoucherModel> GetVoucher_All();
+
+        //Particulars
+        ParticularModel CreateParticular(ParticularModel model);
+        List<ParticularModel> GetParticular_All();
+
+        //Bills
+        BillModel CreateBill(BillModel model);
+        List<BillModel> GetBill_All();
+
         //Journall
         JournalModel CreateJournal(JournalModel model);
 
