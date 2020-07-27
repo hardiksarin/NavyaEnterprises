@@ -41,6 +41,7 @@ namespace GravitonLibrary.DataAccess
         //Bills
         BillModel CreateBill(BillModel model);
         List<BillModel> GetBill_All();
+        List<BillModel> GetBill_ById(LedgerModel model);
 
         //Journall
         JournalModel CreateJournal(JournalModel model);

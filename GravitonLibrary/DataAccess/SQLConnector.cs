@@ -196,6 +196,16 @@ namespace GravitonLibrary.DataAccess
             }
         }
 
+        public List<BillModel> GetBill_ById(LedgerModel model)
+        {
+            List<BillModel> output = new List<BillModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<BillModel>($"select * from bill where lid = {model.lid}").ToList();
+                return output;
+            }
+        }
+
         /// <summary>
         /// Gets all the records of Category from database.
         /// </summary>
