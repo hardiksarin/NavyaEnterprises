@@ -33,6 +33,8 @@ namespace GravitonLibrary.DataAccess
         //Voucher
         VoucherModel CreateVoucher(VoucherModel model);
         List<VoucherModel> GetVoucher_All();
+        List<VoucherModel> GetVoucher_Payment();
+        List<VoucherModel> GetVoucher_Reciept();
 
         //Particulars
         ParticularModel CreateParticular(ParticularModel model);

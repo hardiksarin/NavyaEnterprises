@@ -304,6 +304,26 @@ namespace GravitonLibrary.DataAccess
             }
         }
 
+        public List<VoucherModel> GetVoucher_Payment()
+        {
+            List<VoucherModel> output = new List<VoucherModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<VoucherModel>("select * from voucher where vtype = 'Payment'").ToList();
+                return output;
+            }
+        }
+
+        public List<VoucherModel> GetVoucher_Reciept()
+        {
+            List<VoucherModel> output = new List<VoucherModel>();
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                output = connection.Query<VoucherModel>("select * from voucher where vtype = 'Receipt'").ToList();
+                return output;
+            }
+        }
+
         /// <summary>
         /// Updates the Category into Database.
         /// </summary>
