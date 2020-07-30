@@ -44,6 +44,7 @@ namespace GravitonLibrary.DataAccess
         BillModel CreateBill(BillModel model);
         List<BillModel> GetBill_All();
         List<BillModel> GetBill_ById(LedgerModel model);
+        void UpdateBill(BillModel model);
 
         //Journall
         JournalModel CreateJournal(JournalModel model);
@@ -53,5 +54,8 @@ namespace GravitonLibrary.DataAccess
 
         //Cheque Inventory
         ChequeInventoryModel CreateChequeInventory(ChequeInventoryModel model);
+
+        //Transactions
+        TransactionModel CreateTransaction(TransactionModel model);
     }
 }

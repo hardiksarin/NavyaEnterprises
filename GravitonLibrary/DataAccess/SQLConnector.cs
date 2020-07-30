@@ -163,6 +163,21 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
+        /// Saves Transaction Model to database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public TransactionModel CreateTransaction(TransactionModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                int id = connection.ExecuteScalar<int>($"insert into transaction(transaction_id,transaction_date,transaction_amount,bill_id) values(default,'{model.transaction_date}',{model.transaction_amount},{model.bill_id}) returning transaction_id");
+                model.transaction_id = id;
+                return model;
+            }
+        }
+
+        /// <summary>
         /// Saves Voucher Model to Database
         /// </summary>
         /// <param name="model"></param>
@@ -196,6 +211,11 @@ namespace GravitonLibrary.DataAccess
             }
         }
 
+        /// <summary>
+        /// Gets list of bills of particular ledger.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public List<BillModel> GetBill_ById(LedgerModel model)
         {
             List<BillModel> output = new List<BillModel>();
@@ -304,6 +324,10 @@ namespace GravitonLibrary.DataAccess
             }
         }
 
+        /// <summary>
+        /// Get payment vouchers
+        /// </summary>
+        /// <returns></returns>
         public List<VoucherModel> GetVoucher_Payment()
         {
             List<VoucherModel> output = new List<VoucherModel>();
@@ -314,6 +338,10 @@ namespace GravitonLibrary.DataAccess
             }
         }
 
+        /// <summary>
+        /// Get Reciept vouchers
+        /// </summary>
+        /// <returns></returns>
         public List<VoucherModel> GetVoucher_Reciept()
         {
             List<VoucherModel> output = new List<VoucherModel>();
@@ -321,6 +349,18 @@ namespace GravitonLibrary.DataAccess
             {
                 output = connection.Query<VoucherModel>("select * from voucher where vtype = 'Receipt'").ToList();
                 return output;
+            }
+        }
+
+        /// <summary>
+        /// Updates the Bill into Database
+        /// </summary>
+        /// <param name="model"></param>
+        public void UpdateBill(BillModel model)
+        {
+            using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
+            {
+                connection.ExecuteScalar($"update bill set bill_name = '{model.bill_name}', bill_due_date = '{model.bill_due_date}', bill_amount = {model.bill_amount}, lid = {model.lid}, pid = {model.pid}, bill_done = '{model.bill_done}', vid = {model.vid} where bill_id = {model.bill_id}");
             }
         }
 
