@@ -39,6 +39,18 @@ namespace GravitonLibrary.Models
         /// </summary>
         public bool enable_interest_calculations { get; set; }
         /// <summary>
+        /// Current balance of the ledger
+        /// </summary>
+        public double current_bal { get; set; }
+        /// <summary>
+        /// transactions credited to this account
+        /// </summary>
+        public double credit_bal { get; set; }
+        /// <summary>
+        /// Transactions debited from this account
+        /// </summary>
+        public double debit_bal { get; set; }
+        /// <summary>
         /// Mailing Detail Connected to Ledger
         /// </summary>
         public MailingDetailsModel mailingModel { get; set; }

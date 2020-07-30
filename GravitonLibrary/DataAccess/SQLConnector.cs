@@ -138,7 +138,7 @@ namespace GravitonLibrary.DataAccess
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
                 //Add Ledger Model to Database
-                int lid = connection.ExecuteScalar<int>($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enable_interest_calculations}') returning lid");
+                int lid = connection.ExecuteScalar<int>($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enable_interest_calculations}',{model.current_bal},{model.credit_bal},{model.debit_bal}) returning lid");
                 model.mailingModel.lid = lid;
 
                 //Add Mailing Details to Database
@@ -221,7 +221,7 @@ namespace GravitonLibrary.DataAccess
             List<BillModel> output = new List<BillModel>();
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                output = connection.Query<BillModel>($"select * from bill where lid = {model.lid}").ToList();
+                output = connection.Query<BillModel>($"select * from bill where lid = {model.lid} and bill_done = 'f'").ToList();
                 return output;
             }
         }
@@ -410,7 +410,7 @@ namespace GravitonLibrary.DataAccess
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
                 //Update Ledger table in database
-                connection.ExecuteScalar($"update ledger set ledger_name = '{model.ledger_name}', ledger_alias = '{model.ledger_alias}', ledger_opening_balance = {model.ledger_opening_balance}, under_group = {model.under_group}, bill_based_accounting = '{model.bill_based_accounting}', cost_centers_applicable = '{model.cost_centers_applicable}', enabel_interest_calculations = '{model.enable_interest_calculations}' where lid = {model.lid}");
+                connection.ExecuteScalar($"update ledger set ledger_name = '{model.ledger_name}', ledger_alias = '{model.ledger_alias}', ledger_opening_balance = {model.ledger_opening_balance}, under_group = {model.under_group}, bill_based_accounting = '{model.bill_based_accounting}', cost_centers_applicable = '{model.cost_centers_applicable}', enabel_interest_calculations = '{model.enable_interest_calculations}', current_bal = {model.current_bal}, credit_bal = {model.credit_bal}, debit_bal = {model.debit_bal} where lid = {model.lid}");
 
                 //update Mailing Details Table in Database
                 connection.ExecuteScalar($"update mailing_details set md_name = '{m.md_name}', md_address = '{m.md_address}', md_city = '{m.md_city}', md_state = '{m.md_state}', md_country = '{m.md_country}', md_pincode = '{m.md_pincode}' where lid = {model.lid}");
