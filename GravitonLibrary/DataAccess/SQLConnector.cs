@@ -178,7 +178,7 @@ namespace GravitonLibrary.DataAccess
         }
 
         /// <summary>
-        /// Saves Voucher Model to Database
+        /// Saves Payment Voucher Model to Database
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
