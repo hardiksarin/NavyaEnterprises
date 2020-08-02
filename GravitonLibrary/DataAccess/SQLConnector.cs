@@ -51,7 +51,7 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                connection.ExecuteScalar($"insert into bill values(default,'{model.bill_name}','{model.bill_due_date}',{model.bill_amount},{model.lid},{model.pid},'{model.bill_done}',{model.vid})");
+                connection.ExecuteScalar($"insert into bill values(default,'{model.bill_name}','{model.bill_due_date}',{model.bill_amount:0.00},{model.lid},{model.pid},'{model.bill_done}',{model.vid})");
                 return model;
             }
         }
@@ -138,7 +138,7 @@ namespace GravitonLibrary.DataAccess
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
                 //Add Ledger Model to Database
-                int lid = connection.ExecuteScalar<int>($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enable_interest_calculations}',{model.current_bal},{model.credit_bal},{model.debit_bal}) returning lid");
+                int lid = connection.ExecuteScalar<int>($"insert into ledger values(default,'{model.ledger_name}','{model.ledger_alias}',{model.ledger_opening_balance:0.00},{model.under_group},'{model.bill_based_accounting}','{model.cost_centers_applicable}','{model.enable_interest_calculations}',{model.current_bal:0.00},{model.credit_bal:0.00},{model.debit_bal:0.00}) returning lid");
                 model.mailingModel.lid = lid;
 
                 //Add Mailing Details to Database
@@ -156,7 +156,7 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                int id = connection.ExecuteScalar<int>($"insert into particulars values(default,{model.particular_amount},{model.particular_name},{model.vid}) returning pid");
+                int id = connection.ExecuteScalar<int>($"insert into particulars values(default,{model.particular_amount:0.00},{model.particular_name},{model.vid}) returning pid");
                 model.pid = id;
                 return model;
             }
@@ -171,7 +171,7 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                int id = connection.ExecuteScalar<int>($"insert into transaction(transaction_id,transaction_date,transaction_amount,bill_id) values(default,'{model.transaction_date}',{model.transaction_amount},{model.bill_id}) returning transaction_id");
+                int id = connection.ExecuteScalar<int>($"insert into transaction(transaction_id,transaction_date,transaction_amount,bill_id) values(default,'{model.transaction_date}',{model.transaction_amount:0.00},{model.bill_id}) returning transaction_id");
                 model.transaction_id = id;
                 return model;
             }
@@ -360,7 +360,7 @@ namespace GravitonLibrary.DataAccess
         {
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
-                connection.ExecuteScalar($"update bill set bill_name = '{model.bill_name}', bill_due_date = '{model.bill_due_date}', bill_amount = {model.bill_amount}, lid = {model.lid}, pid = {model.pid}, bill_done = '{model.bill_done}', vid = {model.vid} where bill_id = {model.bill_id}");
+                connection.ExecuteScalar($"update bill set bill_name = '{model.bill_name}', bill_due_date = '{model.bill_due_date}', bill_amount = {model.bill_amount:0.00}, lid = {model.lid}, pid = {model.pid}, bill_done = '{model.bill_done}', vid = {model.vid} where bill_id = {model.bill_id}");
             }
         }
 
@@ -410,7 +410,7 @@ namespace GravitonLibrary.DataAccess
             using (IDbConnection connection = new NpgsqlConnection(GlobalConfig.getDatabaseConnectionString()))
             {
                 //Update Ledger table in database
-                connection.ExecuteScalar($"update ledger set ledger_name = '{model.ledger_name}', ledger_alias = '{model.ledger_alias}', ledger_opening_balance = {model.ledger_opening_balance}, under_group = {model.under_group}, bill_based_accounting = '{model.bill_based_accounting}', cost_centers_applicable = '{model.cost_centers_applicable}', enabel_interest_calculations = '{model.enable_interest_calculations}', current_bal = {model.current_bal}, credit_bal = {model.credit_bal}, debit_bal = {model.debit_bal} where lid = {model.lid}");
+                connection.ExecuteScalar($"update ledger set ledger_name = '{model.ledger_name}', ledger_alias = '{model.ledger_alias}', ledger_opening_balance = {model.ledger_opening_balance:0.00}, under_group = {model.under_group}, bill_based_accounting = '{model.bill_based_accounting}', cost_centers_applicable = '{model.cost_centers_applicable}', enabel_interest_calculations = '{model.enable_interest_calculations}', current_bal = {model.current_bal:0.00}, credit_bal = {model.credit_bal:0.00}, debit_bal = {model.debit_bal:0.00} where lid = {model.lid}");
 
                 //update Mailing Details Table in Database
                 connection.ExecuteScalar($"update mailing_details set md_name = '{m.md_name}', md_address = '{m.md_address}', md_city = '{m.md_city}', md_state = '{m.md_state}', md_country = '{m.md_country}', md_pincode = '{m.md_pincode}' where lid = {model.lid}");
